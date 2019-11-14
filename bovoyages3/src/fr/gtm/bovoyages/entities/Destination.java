@@ -34,9 +34,9 @@ public class Destination {
 	private String description;
 	@Column(name = "deleted")
 	private int deleted;
-//	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
-//	@JoinColumn(name="fk_destination")
-//	private List<Image> images=new ArrayList<Image>();
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+	@JoinColumn(name="fk_destination")
+	private List<Image> images=new ArrayList<Image>();
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinColumn(name="fk_destination")
@@ -81,13 +81,13 @@ public class Destination {
 		this.deleted = deleted;
 	}
 
-//	public List<Image> getImage() {
-//		return images;
-//	}
-//
-//	public void setImage(List<Image> image) {
-//		this.images = image;
-//	}
+	public List<Image> getImage() {
+		return images;
+	}
+
+	public void setImage(List<Image> image) {
+		this.images = image;
+	}
 
 	public List<DatesVoyages> getDates() {
 		return dates;

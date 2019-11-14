@@ -13,7 +13,7 @@ public class DestinationDTO {
 	private String region;
 	private String description;
 	private int deleted;
-//	private List<Image> images=new ArrayList<Image>();
+	private List<Image> images=new ArrayList<Image>();
 	private List<DatesVoyages> dates=new ArrayList<DatesVoyages>();
 
 	public DestinationDTO() {
@@ -67,14 +67,14 @@ public class DestinationDTO {
 		this.deleted = deleted;
 	}
 
-//	public List<Image> getImage() {
-//		return images;
-//	}
-//
-//	public void setImage(List<Image> image) {
-//		this.images = image;
-//	}
-//
+	public List<Image> getImage() {
+		return images;
+	}
+
+	public void setImage(List<Image> image) {
+		this.images = image;
+	}
+
 	public List<DatesVoyages> getDates() {
 		return dates;
 	}
