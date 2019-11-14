@@ -1,5 +1,7 @@
 package fr.gtm.bovoyages.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "images")
-public class Image {
+public class Image implements Serializable {
 	@Id
 	@Column(name = "image")
 	private String image;

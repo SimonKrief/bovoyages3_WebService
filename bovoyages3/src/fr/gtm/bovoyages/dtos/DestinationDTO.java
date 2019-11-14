@@ -1,5 +1,6 @@
 package fr.gtm.bovoyages.dtos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import fr.gtm.bovoyages.entities.DatesVoyages;
 import fr.gtm.bovoyages.entities.Destination;
 import fr.gtm.bovoyages.entities.Image;
 
-public class DestinationDTO {
+public class DestinationDTO implements Serializable{
 
 	private long id;
 	private String region;

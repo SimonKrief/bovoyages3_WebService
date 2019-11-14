@@ -100,14 +100,14 @@ public class DestinationDAO{
 //		return em.find(DatesVoyages.class, id);
 //	}
 	
-//	public List<DatesVoyages> getDestinationDates(long id) {
-//		Destination d=em.find(Destination.class, id);
-//		List<DatesVoyages> dates=new ArrayList<DatesVoyages>();
-//		for(DatesVoyages date:d.getDates()) {
-//			dates.add(date);
-//		}
-//		return dates;
-//	}
+	public List<DatesVoyages> getDestinationDates(String id) {
+		Destination d=em.find(Destination.class, Long.valueOf(id));
+		List<DatesVoyages> dates=new ArrayList<DatesVoyages>();
+		for(DatesVoyages date:d.getDates()) {
+			dates.add(date);
+		}
+		return dates;
+	}
 //	
 //	public void addDestinationImage(long destinationID, String nomImage) {
 //		Destination d=em.find(Destination.class, destinationID);

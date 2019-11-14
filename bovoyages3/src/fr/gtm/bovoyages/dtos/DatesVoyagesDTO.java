@@ -1,45 +1,33 @@
-package fr.gtm.bovoyages.entities;
+package fr.gtm.bovoyages.dtos;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-@Entity
-@Table(name="dates_voyages")
-public class DatesVoyages implements Serializable {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "pk_date_voyage")
+import fr.gtm.bovoyages.entities.DatesVoyages;
+
+
+public class DatesVoyagesDTO implements Serializable {
+
 	private long id;
-	@Column(name = "date_depart")
-	private Date dateDepart;
-	@Column(name = "date_retour")
-	private Date dateRetour;
-	@Column(name = "prixHT")
+	private Date  dateDepart;
+	private Date  dateRetour;
 	private float prixHT;
-	@Column(name = "deleted")
 	private int deleted;
-	@Column(name = "nb_places")
 	private int nbPlaces;
-	@Column(name = "fk_destination")
 	private long fkDestination;
-
-public DatesVoyages() {}
-
-	public DatesVoyages(Date dateDepart, Date dateRetour, float prixHT, int deleted, int nbPlaces,
-			long fkDestination) {
+	
+	public DatesVoyagesDTO() {}
+	
+	public DatesVoyagesDTO(DatesVoyages datesVoyages) {
 		super();
-		this.dateDepart = dateDepart;
-		this.dateRetour = dateRetour;
-		this.prixHT = prixHT;
-		this.deleted = deleted;
-		this.nbPlaces = nbPlaces;
-		this.fkDestination = fkDestination;
+		this.dateDepart = datesVoyages.getDateDepart();
+		this.dateRetour = datesVoyages.getDateRetour();
+		this.prixHT = datesVoyages.getPrixHT();
+		this.deleted = datesVoyages.getDeleted();
+		this.nbPlaces = datesVoyages.getNbPlaces();
+		this.fkDestination = datesVoyages.getFkDestination();
 	}
 
 	

@@ -1,5 +1,6 @@
 package fr.gtm.bovoyages.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -26,7 +27,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "Destination.getDestinations", query = "SELECT d FROM Destination d order by d.region asc"), // requête JPA type SQL pour récupérer toutes les destinations
 //		@NamedQuery(name = "Destination.getDates", query = "SELECT d.dates FROM Destination d where d like:d")
 })
-public class Destination {
+public class Destination implements Serializable{
 //	
 	@Id                                                   //annotation signalant à JPA que l'attribut est la clé primaire de la table
 	@GeneratedValue(strategy = GenerationType.IDENTITY)   //annotation permettant à JPA lors de la persistance de l'entité d'attribuer une clé primaire suivant une logique
