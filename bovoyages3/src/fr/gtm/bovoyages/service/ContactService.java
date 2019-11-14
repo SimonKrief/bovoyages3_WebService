@@ -19,14 +19,26 @@ import fr.gtm.bovoyages.dao.DestinationDAO;
 import fr.gtm.bovoyages.dtos.DestinationDTO;
 import fr.gtm.bovoyages.entities.Destination;
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//
+//                                                         COUCHE DE SERVICE
+//
+//
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//  annotation specifiant le chemin d'acces à cette couche une fois que le chemmin du web service a été entré
 @Path("/destinations")
 public class ContactService {
+//	
+//  DAO des destinations permettant de récupérer les données	
 	@EJB private DestinationDAO destinationDAO;
-	
-	@GET
-	@Path("/all")
+//	
+//  methode permettant de récupérer toutes les destinations en bases de données	
+	@GET                                          // la recuperation des destination est une methode de type get 
+	@Path("/all")                                 // chemin d'acces à cette fonctionnalité
 //	@Produces(MediaType.APPLICATION_JSON)
-	@Produces("application/json;charset=utf-8")
+	@Produces("application/json;charset=utf-8")   // format des données envoyées : JSON et UTF-8
 	public List<DestinationDTO> getAllContacts(){
 		List<DestinationDTO> dtos = new ArrayList<DestinationDTO>();
 		List<Destination> destinations = destinationDAO.getDestinations();
