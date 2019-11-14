@@ -1,5 +1,6 @@
 package fr.gtm.bovoyages.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -7,11 +8,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="dates_voyages")
-public class DatesVoyages {
+@NamedQueries({
+//	@NamedQuery(name = "DatesVoyages.getAllDatesVoyages", query = "SELECT d FROM DatesVoyages d order by d.promotion asc"), // requête JPA type SQL pour récupérer toutes les destinations
+	@NamedQuery(name = "DatesVoyages.getAllDatesVoyages", query = "SELECT d FROM DatesVoyages d"), // requête JPA type SQL pour récupérer toutes les destinations
+
+})
+public class DatesVoyages implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_date_voyage")
@@ -28,6 +36,11 @@ public class DatesVoyages {
 	private int nbPlaces;
 	@Column(name = "fk_destination")
 	private long fkDestination;
+	
+	/***********/
+	@Column(name = "promotion")
+	private int promotion;
+	/**************/
 
 public DatesVoyages() {}
 
@@ -97,6 +110,14 @@ public DatesVoyages() {}
 
 	public void setFkDestination(long fkDestination) {
 		this.fkDestination = fkDestination;
+	}
+
+	public int getPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(int promotion) {
+		this.promotion = promotion;
 	}
 
 }

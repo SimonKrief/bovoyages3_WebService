@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -11,16 +12,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
+import fr.gtm.bovoyages.dtos.DestinationDTO;
 import fr.gtm.bovoyages.entities.DatesVoyages;
 import fr.gtm.bovoyages.entities.Destination;
 import fr.gtm.bovoyages.entities.Image;
 
 @Singleton
-public class DestinationDAO{
+public class DestinationDAO {
+	private Logger LOG = Logger.getLogger("SERVEUR-DAO");
 
-	@PersistenceContext(name="bovoyages") private EntityManager em;
+	@PersistenceContext(name = "bovoyages")
+	private EntityManager em;
 //	@EJB private DatesVoyagesDAO datesVoyagesDAO;
-	
+
 //	public DestinationDAO() {}
 //	
 //	public void create(Destination destination) {
@@ -41,6 +45,30 @@ public class DestinationDAO{
 
 	public List<Destination> getDestinations() {
 		return em.createNamedQuery("Destination.getDestinations", Destination.class).getResultList();
+	}
+
+	public List<DestinationDTO> getDestinationsDatesPromotion() {
+		LOG.info(">>>>>>>>>>>>>>>>>>>>>> \n\ndebut getDestinationsDatesPromotion \n\n>>>>>>>>>>>> ");
+		List<DatesVoyages> datesVoyages = new ArrayList<DatesVoyages>();
+		List<DestinationDTO> destinationsPromotion = new ArrayList<DestinationDTO>();
+		List<Destination> destinations = getDestinations();
+		DestinationDTO destinationDTO;
+		for (Destination d : destinations) {
+			destinationDTO = new DestinationDTO(d);
+			for (DatesVoyages date : d.getDates()) {
+				if (date.getPromotion() != 0) {
+					datesVoyages.add(date);
+				}			
+			}
+			if (!datesVoyages.isEmpty()) {
+				LOG.info(">>>>>>>>>>>>>>>>>>>>>> \n\ndebut passe  \n\n>>>>>>>>>>>> ");
+
+				destinationDTO.setDates(datesVoyages);
+				destinationsPromotion.add(destinationDTO);
+			}
+			datesVoyages = new ArrayList<DatesVoyages>();
+		}
+		return destinationsPromotion;
 	}
 
 //	public Destination addDestinationDate(long destinationID, DatesVoyages newDate) {
@@ -92,14 +120,14 @@ public class DestinationDAO{
 //		this.update(d);
 //		return d;
 //	}
-	
+
 //	public DatesVoyages getDatesById(long id) {
 //		EntityManager em = getEntityManagerFactory().createEntityManager();
 //		DatesVoyages dates= em.find(DatesVoyages.class, id);
 //		em.close();
 //		return em.find(DatesVoyages.class, id);
 //	}
-	
+
 //	public List<DatesVoyages> getDestinationDates(long id) {
 //		Destination d=em.find(Destination.class, id);
 //		List<DatesVoyages> dates=new ArrayList<DatesVoyages>();
