@@ -48,6 +48,23 @@ public class ContactService {
 		return dtos;
 	}
 	
+//  methode permettant de récupérer toutes les regions disponibles avec les destinations en bases de données	
+	@GET                                          // la recuperation des destination est une methode de type get 
+	@Path("/allRegions")                                 // chemin d'acces à cette fonctionnalité
+//	@Produces(MediaType.APPLICATION_JSON)
+	@Produces("application/json;charset=utf-8")   // format des données envoyées : JSON et UTF-8
+	public List<String> getAllRegions(){
+		List<String> regions = new ArrayList<String>();
+		List<Destination> destinations = destinationDAO.getDestinations();
+		for(Destination d : destinations) {
+			if(!regions.contains(d.getRegion())) {
+				regions.add(d.getRegion());
+			}
+		}
+		
+		return regions;
+	}
+	
 //	@GET
 //	@Path("/adresses/{id}")
 ////	@Produces(MediaType.APPLICATION_JSON)
