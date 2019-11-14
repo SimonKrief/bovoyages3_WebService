@@ -16,10 +16,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import fr.gtm.bovoyages.dao.DestinationDAO;
+import fr.gtm.bovoyages.dtos.DatesVoyagesDTO;
 import fr.gtm.bovoyages.dtos.DestinationDTO;
 import fr.gtm.bovoyages.dtos.VoyageDTO;
 import fr.gtm.bovoyages.dtos.VoyageurDTO;
 import fr.gtm.bovoyages.entities.Client;
+import fr.gtm.bovoyages.entities.DatesVoyages;
 import fr.gtm.bovoyages.entities.Destination;
 import fr.gtm.bovoyages.entities.Voyage;
 import fr.gtm.bovoyages.entities.Voyageur;
@@ -132,7 +134,23 @@ public class ContactService {
 			dtos.add(new VoyageurDTO(voyageur));
 		}
 		return Response.status(Status.CREATED).entity(dtos).build();
-	}	
+	}
+	
+//  methode permettant de récupérer toutes les dates valides d'une destination	
+	@GET                                         // l'envoi d'une destination dont on souhaite les dates de voyages necessite un post 
+	@Path("/allDatesVoyagesValidesDeDestination/{id}")                                 // chemin d'acces à cette fonctionnalité
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)   // format des données envoyées : JSON et UTF-8
+	public Response getAllDatesVoyagesValidesDeDestination(@PathParam("id") String id){
+		List<DatesVoyages> datesVoyages = destinationDAO.getDestinationDates(id);
+		List<DatesVoyagesDTO> dtos = new ArrayList<DatesVoyagesDTO>();
+		for(DatesVoyages d : datesVoyages) {
+			if(d.getDeleted() == 0) {
+				dtos.add(new DatesVoyagesDTO(d));
+			}
+		}
+		return Response.status(Status.CREATED).entity(dtos).build();
+	}
 	
 //	@GET
 //	@Path("/adresses/{id}")

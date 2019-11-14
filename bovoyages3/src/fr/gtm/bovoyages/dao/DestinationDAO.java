@@ -97,7 +97,17 @@ public class DestinationDAO{
 		}
 		else return new ArrayList<Voyageur>();
 }
-
+	
+	public List<DatesVoyages> getDestinationDates(String id) {
+		Destination d=em.find(Destination.class, Long.valueOf(id));
+		List<DatesVoyages> dates=new ArrayList<DatesVoyages>();
+		for(DatesVoyages date:d.getDates()) {
+			if(date.getDeleted() == 0) {
+				dates.add(date);
+			}
+		}
+		return dates;
+	}
 //	public Destination addDestinationDate(long destinationID, DatesVoyages newDate) {
 //		Destination d=em.find(Destination.class, destinationID);
 //		List<DatesVoyages> dates=new ArrayList<DatesVoyages>();

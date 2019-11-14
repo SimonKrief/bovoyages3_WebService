@@ -1,6 +1,7 @@
 package fr.gtm.bovoyages.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,9 +19,9 @@ public class DatesVoyages implements Serializable{
 	@Column(name = "pk_date_voyage")
 	private long id;
 	@Column(name = "date_depart")
-	private Date dateDepart;
+	private LocalDate dateDepart;
 	@Column(name = "date_retour")
-	private Date dateRetour;
+	private LocalDate dateRetour;
 	@Column(name = "prixHT")
 	private float prixHT;
 	@Column(name = "deleted")
@@ -32,7 +33,7 @@ public class DatesVoyages implements Serializable{
 
 public DatesVoyages() {}
 
-	public DatesVoyages(Date dateDepart, Date dateRetour, float prixHT, int deleted, int nbPlaces,
+	public DatesVoyages(LocalDate dateDepart, LocalDate dateRetour, float prixHT, int deleted, int nbPlaces,
 			long fkDestination) {
 		super();
 		this.dateDepart = dateDepart;
@@ -52,19 +53,19 @@ public DatesVoyages() {}
 		this.id = id;
 	}
 
-	public Date getDateDepart() {
+	public LocalDate getDateDepart() {
 		return dateDepart;
 	}
 
-	public void setDateDepart(Date dateDepart) {
+	public void setDateDepart(LocalDate dateDepart) {
 		this.dateDepart = dateDepart;
 	}
 
-	public Date getDateRetour() {
+	public LocalDate getDateRetour() {
 		return dateRetour;
 	}
 
-	public void setDateRetour(Date dateRetour) {
+	public void setDateRetour(LocalDate dateRetour) {
 		this.dateRetour = dateRetour;
 	}
 
