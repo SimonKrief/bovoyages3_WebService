@@ -11,9 +11,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
+import fr.gtm.bovoyages.entities.Client;
 import fr.gtm.bovoyages.entities.DatesVoyages;
 import fr.gtm.bovoyages.entities.Destination;
 import fr.gtm.bovoyages.entities.Image;
+import fr.gtm.bovoyages.entities.Voyage;
+import fr.gtm.bovoyages.entities.Voyageur;
 
 @Singleton
 public class DestinationDAO{
@@ -42,6 +45,58 @@ public class DestinationDAO{
 	public List<Destination> getDestinations() {
 		return em.createNamedQuery("Destination.getDestinations", Destination.class).getResultList();
 	}
+	
+	public List<Voyage> addVoyage(Voyage voyage) {
+		em.persist(voyage);
+	return em.createNamedQuery("Voyage.getVoyages", Voyage.class).getResultList();
+}
+	
+	public Voyage updateVoyage(Voyage voyage) {
+		em.merge(voyage);
+	return em.find(Voyage.class, voyage.getId());
+}
+	
+	public List<Client> addClient(Client client) {
+		em.persist(client);
+	return em.createNamedQuery("Client.getClients", Client.class).getResultList();
+}
+	
+	public Voyage addClientVoyage(Client client, String id) {
+		Voyage voyage = em.find(Voyage.class, Long.valueOf(id));
+		voyage.setFkClient(client.getId());
+		this.updateVoyage(voyage);
+	return em.find(Voyage.class, Long.valueOf(id));
+}
+	
+	public List<Voyageur> addVoyageurAVoyage(Voyageur[] voyageurs, String id) {
+		Voyage voyage = em.find(Voyage.class, Long.valueOf(id));
+		DatesVoyages datesVoyage = em.find(DatesVoyages.class, voyage.getFk_dates_voyages());
+		long nbPlaces = datesVoyage.getNbPlaces();
+		if(nbPlaces - voyageurs.length >= 0 ) {
+			datesVoyage.setNbPlaces((int)(nbPlaces - voyageurs.length));
+			em.persist(datesVoyage);
+			for(Voyageur voyageur : voyageurs) {
+				em.persist(voyageur);
+				}
+			List<Voyageur> voyageursList = new ArrayList<Voyageur>();
+			for(Voyageur voyageur : voyage.getParticipants()) {
+				voyageursList.add(voyageur);
+				}
+			for(Voyageur voyageur : voyageurs) {
+				voyageursList.add(voyageur);
+				}
+			voyage.setParticipants(voyageursList);
+			this.updateVoyage(voyage);
+			voyage = em.find(Voyage.class, Long.valueOf(id));
+			voyageursList = new ArrayList<Voyageur>();
+			for(Voyageur voyageur : voyage.getParticipants()) {
+				voyageursList.add(voyageur);
+				}
+			
+			return voyageursList;
+		}
+		else return new ArrayList<Voyageur>();
+}
 
 //	public Destination addDestinationDate(long destinationID, DatesVoyages newDate) {
 //		Destination d=em.find(Destination.class, destinationID);

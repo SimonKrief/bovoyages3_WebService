@@ -17,7 +17,12 @@ import javax.ws.rs.core.Response.Status;
 
 import fr.gtm.bovoyages.dao.DestinationDAO;
 import fr.gtm.bovoyages.dtos.DestinationDTO;
+import fr.gtm.bovoyages.dtos.VoyageDTO;
+import fr.gtm.bovoyages.dtos.VoyageurDTO;
+import fr.gtm.bovoyages.entities.Client;
 import fr.gtm.bovoyages.entities.Destination;
+import fr.gtm.bovoyages.entities.Voyage;
+import fr.gtm.bovoyages.entities.Voyageur;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -80,6 +85,54 @@ public class ContactService {
 		}
 		return dtos;
 	}
+
+	@POST
+	@Path("/addClient")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addClient(Client client){
+		List<Client> clients = destinationDAO.addClient(client);
+		
+		return Response.status(Status.CREATED).entity(clients.get(clients.size()-1)).build();
+	}	
+	
+	@POST
+	@Path("/addVoyage")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addVoyage(Voyage voyage){
+		List<Voyage> voyages = destinationDAO.addVoyage(voyage);
+		
+		return Response.status(Status.CREATED).entity(voyages.get(voyages.size()-1)).build();
+	}
+	
+	@POST
+	@Path("/updateVoyage")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateVoyage(Voyage voyage){
+		Voyage voyageReponse = destinationDAO.updateVoyage(voyage);
+		
+		return Response.status(Status.CREATED).entity(voyageReponse).build();
+	}
+	
+	@POST
+	@Path("/addClientVoyage/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addClientVoyage(Client client ,@PathParam("id") String id){
+		Voyage voyageReponse = destinationDAO.addClientVoyage(client,id);
+		
+		return Response.status(Status.CREATED).entity(new VoyageDTO(voyageReponse)).build();
+	}
+	
+	@POST
+	@Path("/addVoyageurAVoyage/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addVoyageurAVoyage(Voyageur[] voyageurs,@PathParam("id") String id){
+		List<Voyageur> voyageursReponse = destinationDAO.addVoyageurAVoyage(voyageurs,id);
+		List<VoyageurDTO> dtos = new ArrayList<VoyageurDTO>();
+		for(Voyageur voyageur : voyageursReponse) {
+			dtos.add(new VoyageurDTO(voyageur));
+		}
+		return Response.status(Status.CREATED).entity(dtos).build();
+	}	
 	
 //	@GET
 //	@Path("/adresses/{id}")

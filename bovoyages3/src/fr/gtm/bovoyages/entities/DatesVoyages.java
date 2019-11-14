@@ -1,5 +1,6 @@
 package fr.gtm.bovoyages.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="dates_voyages")
-public class DatesVoyages {
+public class DatesVoyages implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pk_date_voyage")
