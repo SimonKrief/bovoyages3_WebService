@@ -30,6 +30,8 @@ public class DatesVoyages implements Serializable{
 	private int nbPlaces;
 	@Column(name = "fk_destination")
 	private long fkDestination;
+	@Column(name = "promotion")
+	private long promotion;
 
 public DatesVoyages() {}
 
@@ -99,6 +101,14 @@ public DatesVoyages() {}
 
 	public void setFkDestination(long fkDestination) {
 		this.fkDestination = fkDestination;
+	}
+
+	public long getPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(long promotion) {
+		this.promotion = promotion;
 	}
 
 }

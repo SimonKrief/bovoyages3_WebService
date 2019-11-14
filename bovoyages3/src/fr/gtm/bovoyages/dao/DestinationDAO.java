@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
+import fr.gtm.bovoyages.dtos.DestinationDTO;
 import fr.gtm.bovoyages.entities.Client;
 import fr.gtm.bovoyages.entities.DatesVoyages;
 import fr.gtm.bovoyages.entities.Destination;
@@ -108,6 +109,29 @@ public class DestinationDAO{
 		}
 		return dates;
 	}
+	
+	public List<DestinationDTO> getDestinationsDatesPromotion() {
+		List<DatesVoyages> datesVoyages = new ArrayList<DatesVoyages>();
+		List<DestinationDTO> destinationsPromotion = new ArrayList<DestinationDTO>();
+		List<Destination> destinations = getDestinations();
+		DestinationDTO destinationDTO;
+		for (Destination d : destinations) {
+			destinationDTO = new DestinationDTO(d);
+			for (DatesVoyages date : d.getDates()) {
+				if (date.getPromotion() != 0) {
+					datesVoyages.add(date);
+				}			
+			}
+			if (!datesVoyages.isEmpty()) {
+
+				destinationDTO.setDates(datesVoyages);
+				destinationsPromotion.add(destinationDTO);
+			}
+			datesVoyages = new ArrayList<DatesVoyages>();
+		}
+		return destinationsPromotion;
+	}
+	
 //	public Destination addDestinationDate(long destinationID, DatesVoyages newDate) {
 //		Destination d=em.find(Destination.class, destinationID);
 //		List<DatesVoyages> dates=new ArrayList<DatesVoyages>();

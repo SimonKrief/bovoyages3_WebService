@@ -31,5 +31,9 @@ public class DatesVoyagesDAO {
 		return em.find(DatesVoyages.class, id);
 	}
 	
+	public List<DatesVoyages> getAllDatesVoyages() {
+		return em.createNamedQuery("DatesVoyages.getAllDatesVoyages", DatesVoyages.class).getResultList();
+	} 
+	
 	
 }

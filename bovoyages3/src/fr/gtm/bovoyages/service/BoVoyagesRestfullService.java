@@ -36,7 +36,7 @@ import fr.gtm.bovoyages.entities.Voyageur;
 //
 //  annotation specifiant le chemin d'acces à cette couche une fois que le chemmin du web service a été entré
 @Path("/destinations")
-public class ContactService {
+public class BoVoyagesRestfullService {
 //	
 //  DAO des destinations permettant de récupérer les données	
 	@EJB private DestinationDAO destinationDAO;

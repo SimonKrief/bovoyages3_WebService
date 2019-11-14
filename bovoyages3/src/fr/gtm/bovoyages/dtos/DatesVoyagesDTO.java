@@ -16,6 +16,7 @@ public class DatesVoyagesDTO implements Serializable {
 	private int deleted;
 	private int nbPlaces;
 	private long fkDestination;
+	private long promotion;
 	
 	public DatesVoyagesDTO() {}
 	
@@ -27,6 +28,7 @@ public class DatesVoyagesDTO implements Serializable {
 		this.deleted = datesVoyages.getDeleted();
 		this.nbPlaces = datesVoyages.getNbPlaces();
 		this.fkDestination = datesVoyages.getFkDestination();
+		this.promotion = datesVoyages.getPromotion();
 	}
 
 	
@@ -84,6 +86,14 @@ public class DatesVoyagesDTO implements Serializable {
 
 	public void setFkDestination(long fkDestination) {
 		this.fkDestination = fkDestination;
+	}
+
+	public long getPromotion() {
+		return promotion;
+	}
+
+	public void setPromotion(long promotion) {
+		this.promotion = promotion;
 	}
 
 }
