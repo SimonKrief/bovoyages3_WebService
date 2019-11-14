@@ -39,7 +39,7 @@ public class ContactService {
 	@Path("/all")                                 // chemin d'acces à cette fonctionnalité
 //	@Produces(MediaType.APPLICATION_JSON)
 	@Produces("application/json;charset=utf-8")   // format des données envoyées : JSON et UTF-8
-	public List<DestinationDTO> getAllContacts(){
+	public List<DestinationDTO> getAllDestinations(){
 		List<DestinationDTO> dtos = new ArrayList<DestinationDTO>();
 		List<Destination> destinations = destinationDAO.getDestinations();
 		for(Destination d : destinations) {
@@ -63,6 +63,22 @@ public class ContactService {
 		}
 		
 		return regions;
+	}
+	
+//  methode permettant de récupérer toutes les regions disponibles avec les destinations en bases de données	
+	@GET                                          // la recuperation des destination est une methode de type get 
+	@Path("/allDestinationsValides")                                 // chemin d'acces à cette fonctionnalité
+//	@Produces(MediaType.APPLICATION_JSON)
+	@Produces("application/json;charset=utf-8")   // format des données envoyées : JSON et UTF-8
+	public List<DestinationDTO> getAllDestinationsValides(){
+		List<DestinationDTO> dtos = new ArrayList<DestinationDTO>();
+		List<Destination> destinations = destinationDAO.getDestinations();
+		for(Destination d : destinations) {
+			if(d.getDeleted() == 0) {
+				dtos.add(new DestinationDTO(d));
+			}
+		}
+		return dtos;
 	}
 	
 //	@GET
