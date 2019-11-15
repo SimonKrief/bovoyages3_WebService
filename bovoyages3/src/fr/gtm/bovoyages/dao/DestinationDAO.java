@@ -154,7 +154,39 @@ public class DestinationDAO{
 		return em.find(Voyage.class, Long.valueOf(voyages.get(voyages.size()-1).getId()));
 	}
 	
+	public Voyage creationVoyage(Voyage voyage) {
+		for(Voyageur voyageur : voyage.getParticipants()) {
+			em.persist(voyageur);
+		}
+		em.persist(voyage);
+		List<Voyage> voyages = em.createNamedQuery("Voyage.getVoyages", Voyage.class).getResultList();
+		return em.find(Voyage.class, Long.valueOf(voyages.get(voyages.size()-1).getId()));
+	}
+	
 	public boolean commandeVoyage(VoyageDTO voyage) {
+		DatesVoyages datesVoyage = em.find(DatesVoyages.class, voyage.getFk_dates_voyages());
+		long nbPlaces = datesVoyage.getNbPlaces();
+		if(nbPlaces - voyage.getParticipants().size() >= 0) {
+			datesVoyage.setNbPlaces((int)(nbPlaces - voyage.getParticipants().size()));
+			em.merge(datesVoyage);
+			return true;
+		}
+		else return false;
+	}
+	
+	public boolean commandeVoyageEnregistre(Voyage voyage, String id) {
+		DatesVoyages datesVoyage = em.find(DatesVoyages.class, voyage.getFk_dates_voyages());
+		long nbPlaces = datesVoyage.getNbPlaces();
+		if(nbPlaces - voyage.getParticipants().size() >= 0) {
+			datesVoyage.setNbPlaces((int)(nbPlaces - voyage.getParticipants().size()));
+			em.merge(datesVoyage);
+			return true;
+		}
+		else return false;
+	}
+	
+	public boolean commandeVoyage(Voyage voyage) {
+		creationVoyage(voyage);
 		DatesVoyages datesVoyage = em.find(DatesVoyages.class, voyage.getFk_dates_voyages());
 		long nbPlaces = datesVoyage.getNbPlaces();
 		if(nbPlaces - voyage.getParticipants().size() >= 0) {

@@ -163,6 +163,22 @@ public class BoVoyagesRestfullService {
 		return Response.status(Status.CREATED).entity(dtos).build();
 	}
 	
+	@POST
+	@Path("/commandeVoyageEnregistre/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response commandeVoyageEnregistre(Voyage voyage,@PathParam("id") String id){
+		boolean bool = destinationDAO.commandeVoyageEnregistre(voyage,id);
+		return Response.status(Status.CREATED).entity(bool).build();
+	}
+	
+	@POST
+	@Path("/commandeVoyage")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response commandeVoyage(Voyage voyage){
+		boolean bool = destinationDAO.commandeVoyage(voyage);
+		return Response.status(Status.CREATED).entity(bool).build();
+	}
+	
 //	@GET
 //	@Path("/adresses/{id}")
 ////	@Produces(MediaType.APPLICATION_JSON)
