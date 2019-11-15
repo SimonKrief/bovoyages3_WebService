@@ -186,10 +186,10 @@ public class DestinationDAO{
 	}
 	
 	public boolean commandeVoyage(Voyage voyage) {
-		creationVoyage(voyage);
 		DatesVoyages datesVoyage = em.find(DatesVoyages.class, voyage.getFk_dates_voyages());
 		long nbPlaces = datesVoyage.getNbPlaces();
-		if(nbPlaces - voyage.getParticipants().size() >= 0) {
+		if((nbPlaces - voyage.getParticipants().size()) >= 0) {
+			creationVoyage(voyage);
 			datesVoyage.setNbPlaces((int)(nbPlaces - voyage.getParticipants().size()));
 			em.merge(datesVoyage);
 			return true;
