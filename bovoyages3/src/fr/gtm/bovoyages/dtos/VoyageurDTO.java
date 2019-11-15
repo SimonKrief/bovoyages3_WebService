@@ -1,6 +1,7 @@
 package fr.gtm.bovoyages.dtos;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ public class VoyageurDTO implements Serializable{
 	private String civilite;
 	private String prenom;
 	private String nom;
-	private Date dateNaissance;
+	private LocalDate dateNaissance;
 	
 	public VoyageurDTO() {}
 
@@ -62,11 +63,11 @@ public class VoyageurDTO implements Serializable{
 		this.nom = nom;
 	}
 
-	public Date getDateNaissance() {
+	public LocalDate getDateNaissance() {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(Date dateNaissance) {
+	public void setDateNaissance(LocalDate dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 	

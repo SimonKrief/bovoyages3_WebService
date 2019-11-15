@@ -16,5 +16,6 @@ public interface BoVoyagesServiceInterface {
 	List<DestinationDTO> getAllDestinationsDatesPromotion();
 	VoyageDTO creationVoyage(VoyageDTO voyage);
 	public Voyageur getVoyageur();
+	public boolean commandeVoyage(VoyageDTO voyage);
 
 }

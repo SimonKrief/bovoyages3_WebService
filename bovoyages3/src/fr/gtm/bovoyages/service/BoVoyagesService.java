@@ -69,5 +69,10 @@ public class BoVoyagesService implements BoVoyagesServiceRemote {
 		Voyageur voyageur = new Voyageur();
 		return voyageur;
 	}
+	
+	@Override
+	public boolean commandeVoyage(VoyageDTO voyage) {
+		return dao.commandeVoyage(voyage);
+	}
 
 }

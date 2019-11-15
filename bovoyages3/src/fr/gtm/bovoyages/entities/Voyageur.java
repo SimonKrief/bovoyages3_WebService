@@ -1,6 +1,7 @@
 package fr.gtm.bovoyages.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -24,11 +25,11 @@ private String prenom;
 	@Column(name = "nom")
 private String nom;
 	@Column(name = "date_naissance")
-private Date dateNaissance;
+private LocalDate dateNaissance;
 	
 	public Voyageur() {}
 
-	public Voyageur(String civilite, String prenom, String nom, Date dateNaissance) {
+	public Voyageur(String civilite, String prenom, String nom, LocalDate dateNaissance) {
 		super();
 		this.civilite = civilite;
 		this.prenom = prenom;
@@ -68,11 +69,11 @@ private Date dateNaissance;
 		this.nom = nom;
 	}
 
-	public Date getDateNaissance() {
+	public LocalDate getDateNaissance() {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(Date dateNaissance) {
+	public void setDateNaissance(LocalDate dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 	

@@ -10,6 +10,7 @@ import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.PathParam;
 
 import fr.gtm.bovoyages.dtos.DestinationDTO;
 import fr.gtm.bovoyages.dtos.VoyageDTO;
@@ -56,6 +57,16 @@ public class DestinationDAO{
 	public Voyage updateVoyage(Voyage voyage) {
 		em.merge(voyage);
 	return em.find(Voyage.class, voyage.getId());
+}
+	
+	public Voyage updateVoyageurDeVoyage(Voyageur voyageur ,String id) {
+		em.merge(voyageur);
+		Voyage voyage = em.find(Voyage.class, Long.valueOf(id));
+		List<Voyageur> voyageursList = new ArrayList<Voyageur>();
+		for(Voyageur v : voyage.getParticipants()) {
+			voyageursList.add(v);
+			}
+	return voyage;
 }
 	
 	public List<Client> addClient(Client client) {
@@ -141,6 +152,17 @@ public class DestinationDAO{
 		em.persist(voyage);
 		List<Voyage> voyages = em.createNamedQuery("Voyage.getVoyages", Voyage.class).getResultList();
 		return em.find(Voyage.class, Long.valueOf(voyages.get(voyages.size()-1).getId()));
+	}
+	
+	public boolean commandeVoyage(VoyageDTO voyage) {
+		DatesVoyages datesVoyage = em.find(DatesVoyages.class, voyage.getFk_dates_voyages());
+		long nbPlaces = datesVoyage.getNbPlaces();
+		if(nbPlaces - voyage.getParticipants().size() >= 0) {
+			datesVoyage.setNbPlaces((int)(nbPlaces - voyage.getParticipants().size()));
+			em.merge(datesVoyage);
+			return true;
+		}
+		else return false;
 	}
 	
 //	public Destination addDestinationDate(long destinationID, DatesVoyages newDate) {

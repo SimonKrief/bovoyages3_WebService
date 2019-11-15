@@ -116,6 +116,17 @@ public class BoVoyagesRestfullService {
 	}
 	
 	@POST
+	@Path("/updateVoyageurDeVoyage/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateVoyage(Voyageur voyageur ,@PathParam("id") String id){
+		Voyage voyageMAJ = destinationDAO.updateVoyageurDeVoyage(voyageur, id);
+		VoyageDTO voyageDTO = new VoyageDTO(voyageMAJ);
+		voyageDTO.setParticipants(voyageMAJ.getParticipants());
+		
+		return Response.status(Status.CREATED).entity(voyageDTO).build();
+	}
+	
+	@POST
 	@Path("/addClientVoyage/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addClientVoyage(Client client ,@PathParam("id") String id){

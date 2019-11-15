@@ -26,6 +26,7 @@ public class VoyageDTO implements Serializable{
 	private String region;
 	private String descriptif;
 	private long fkClient;
+	private long fk_dates_voyages;
 	private List<Voyageur> participants=new ArrayList<Voyageur>();
 	
 	public VoyageDTO() {}
@@ -77,6 +78,13 @@ public class VoyageDTO implements Serializable{
 		this.fkClient = fkClient;
 	}
 
+	public long getFk_dates_voyages() {
+		return fk_dates_voyages;
+	}
+
+	public void setFk_dates_voyages(long fk_dates_voyages) {
+		this.fk_dates_voyages = fk_dates_voyages;
+	}
 
 	public List<Voyageur> getParticipants() {
 		return participants;
