@@ -36,7 +36,7 @@ public class Voyage implements Serializable{
 	private String descriptif;
 	@Column(name = "fk_client")
 	private long fkClient;
-	@Column(name = "fk_dates_voyages")
+	@Column(name = "fk_dates_voyage")
 	private long fk_dates_voyages;
 	@OneToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="voyages_voyageurs",

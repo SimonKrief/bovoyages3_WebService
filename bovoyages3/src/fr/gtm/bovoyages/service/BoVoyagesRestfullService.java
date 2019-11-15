@@ -148,10 +148,10 @@ public class BoVoyagesRestfullService {
 	}
 	
 //  methode permettant de récupérer toutes les dates valides d'une destination	
-	@GET                                         // l'envoi d'une destination dont on souhaite les dates de voyages necessite un post 
-	@Path("/allDatesVoyagesValidesDeDestination/{id}")                                 // chemin d'acces à cette fonctionnalité
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)   // format des données envoyées : JSON et UTF-8
+	@GET//                                                  l'envoi d'une destination dont on souhaite les dates de voyages necessite un post 
+	@Path("/allDatesVoyagesValidesDeDestination/{id}")//    chemin d'acces à cette fonctionnalité
+	@Consumes(MediaType.APPLICATION_JSON)//
+	@Produces(MediaType.APPLICATION_JSON)//                 format des données envoyées : JSON et UTF-8
 	public Response getAllDatesVoyagesValidesDeDestination(@PathParam("id") String id){
 		List<DatesVoyages> datesVoyages = destinationDAO.getDestinationDates(id);
 		List<DatesVoyagesDTO> dtos = new ArrayList<DatesVoyagesDTO>();
@@ -178,67 +178,5 @@ public class BoVoyagesRestfullService {
 		boolean bool = destinationDAO.commandeVoyage(voyage);
 		return Response.status(Status.CREATED).entity(bool).build();
 	}
-	
-//	@GET
-//	@Path("/adresses/{id}")
-////	@Produces(MediaType.APPLICATION_JSON)
-//	@Produces("application/json;charset=utf-8")
-//	public List<AdresseDTO> getAllAdressesById(@PathParam("id") String id){
-//		List<Adresse> adresses = contactDAO.getAllAdressesContact(id);
-//		List<AdresseDTO> dtos = new ArrayList<AdresseDTO>();
-//		for(Adresse a : adresses) {
-//			dtos.add(new AdresseDTO(a));
-//		}
-//		return dtos;
-//	}
-//	
-//	@POST
-//	@Path("/add")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public void addContact(Contact contact){
-//		contactDAO.addContact(contact);
-//	}
-//	
-//	@POST
-//	@Path("/addDTO")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	public Response addContactWSRTestClient(Contact contact){
-//		ContactDTO contactDTO = contactDAO.addContactWSRTC(contact);
-//		return Response.status(Status.CREATED).entity(contactDTO).build();
-//	}
-//	
-//	@DELETE
-//	@Path("/del/{id}")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public void delContact(@PathParam("id") String id){
-//		contactDAO.delContact(id);
-//	}
-//	
-//	@DELETE
-//	@Path("/delC/{id}")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response delContactWSRTestClient(@PathParam("id") String id){
-//		Contact contact = contactDAO.getContact(id);
-//		contactDAO.delContact(id);
-//		return Response.status(Status.CREATED).entity(new ContactDTO(contact)).build();
-//	}
-//	
-//	@POST
-//	@Path("/edit")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public void updateContact(Contact contact){
-//		contactDAO.updateContact(contact);
-//	}
-//	
-//	@POST
-//	@Path("/editC")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	public Response updateContactWSRTestClient(Contact contact){
-//		Contact contactUpdated = contactDAO.updateContactWSRTestClient(contact);
-//		return Response.status(Status.CREATED).entity(new ContactDTO(contactUpdated)).build();
-//	}
-
 	
 }
