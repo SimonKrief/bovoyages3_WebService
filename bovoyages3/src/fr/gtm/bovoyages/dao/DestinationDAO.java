@@ -12,6 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
 import fr.gtm.bovoyages.dtos.DestinationDTO;
+import fr.gtm.bovoyages.dtos.VoyageDTO;
 import fr.gtm.bovoyages.entities.Client;
 import fr.gtm.bovoyages.entities.DatesVoyages;
 import fr.gtm.bovoyages.entities.Destination;
@@ -130,6 +131,16 @@ public class DestinationDAO{
 			datesVoyages = new ArrayList<DatesVoyages>();
 		}
 		return destinationsPromotion;
+	}
+	
+	public Voyage creationVoyage(VoyageDTO voyageDTO) {
+		Voyage voyage = new Voyage(voyageDTO);
+		for(Voyageur voyageur : voyage.getParticipants()) {
+			em.persist(voyageur);
+		}
+		em.persist(voyage);
+		List<Voyage> voyages = em.createNamedQuery("Voyage.getVoyages", Voyage.class).getResultList();
+		return em.find(Voyage.class, Long.valueOf(voyages.get(voyages.size()-1).getId()));
 	}
 	
 //	public Destination addDestinationDate(long destinationID, DatesVoyages newDate) {

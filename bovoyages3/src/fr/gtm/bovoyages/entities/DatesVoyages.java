@@ -9,10 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="dates_voyages")
+@NamedQueries({
+	@NamedQuery(name = "DatesVoyages.getAllDatesVoyages", query = "SELECT d FROM DatesVoyages d"), // requête JPA type SQL pour récupérer toutes les destinations
+})
 public class DatesVoyages implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

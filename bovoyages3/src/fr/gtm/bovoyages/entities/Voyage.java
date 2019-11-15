@@ -17,6 +17,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import fr.gtm.bovoyages.dtos.VoyageDTO;
+
 @Entity
 @Table(name="voyages")
 @NamedQueries({
@@ -44,6 +46,13 @@ public class Voyage implements Serializable{
 	
 	public Voyage() {}
 	
+	public Voyage(VoyageDTO voyageDTO) {
+		this.region = voyageDTO.getRegion();
+		this.descriptif = voyageDTO.getDescriptif();
+		this.fkClient = voyageDTO.getFkClient();
+		this.participants = voyageDTO.getParticipants();
+	}
+
 	public long getId() {
 		return id;
 	}

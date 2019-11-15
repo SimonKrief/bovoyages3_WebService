@@ -10,8 +10,11 @@ import javax.jws.WebService;
 import fr.gtm.bovoyages.dao.DatesVoyagesDAO;
 import fr.gtm.bovoyages.dao.DestinationDAO;
 import fr.gtm.bovoyages.dtos.DestinationDTO;
+import fr.gtm.bovoyages.dtos.VoyageDTO;
 import fr.gtm.bovoyages.entities.DatesVoyages;
 import fr.gtm.bovoyages.entities.Destination;
+import fr.gtm.bovoyages.entities.Voyage;
+import fr.gtm.bovoyages.entities.Voyageur;
 
 @Stateless
 @WebService
@@ -53,6 +56,18 @@ public class BoVoyagesService implements BoVoyagesServiceRemote {
 //		}
 		List<DestinationDTO> dtos = dao.getDestinationsDatesPromotion();
 		return dtos;
+	}
+	
+	@Override
+	public VoyageDTO creationVoyage(VoyageDTO voyage) {
+		Voyage voyageRetour = dao.creationVoyage(voyage);
+		return new VoyageDTO(voyageRetour);
+	}
+	
+	@Override
+	public Voyageur getVoyageur() {
+		Voyageur voyageur = new Voyageur();
+		return voyageur;
 	}
 
 }
